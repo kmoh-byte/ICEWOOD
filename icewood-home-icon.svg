@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg viewBox="0 0 220 200" fill="none" xmlns="http://www.w3.org/2000/svg" width="220" height="200">
+
+  <g transform="translate(110, 108)">
+    <!-- Float shadow -->
+    <ellipse cx="0" cy="68" rx="55" ry="4.5" fill="#1C3F77" opacity="0.10"/>
+
+    <!-- Side wall (right face, darker) -->
+    <polygon points="40,0 65,-15 65,45 40,60" fill="#E8ECF0"/>
+    <!-- Side window -->
+    <polygon points="47,8 62,0 62,22 47,30" fill="#1C3F77" opacity="0.12"/>
+    <polygon points="49,10 60,3 60,19 49,27" fill="#80B8E6"/>
+
+    <!-- Front wall -->
+    <rect x="-40" y="0" width="80" height="60" fill="#F5F7FA"/>
+
+    <!-- Side roof (right face, darker navy) -->
+    <polygon points="0,-48 44,0 69,-15 25,-63" fill="#13305A"/>
+
+    <!-- Front roof -->
+    <polygon points="-44,0 0,-48 44,0" fill="#1C3F77"/>
+
+    <!-- Roof edge line (front-right slope) -->
+    <line x1="0" y1="-48" x2="44" y2="0" stroke="#1C3F77" stroke-width="1" opacity="0.3"/>
+
+    <!-- Chimney side face (darker) -->
+    <polygon points="44,-50 53,-58 53,-25 44,-17" fill="#13305A"/>
+    <!-- Chimney front face -->
+    <rect x="32" y="-50" width="12" height="33" fill="#1C3F77"/>
+
+    <!-- Front windows with recessed 3D frames -->
+    <rect x="-46" y="10" width="22" height="18" rx="2" fill="#1C3F77" opacity="0.12"/>
+    <rect x="-44" y="12" width="18" height="14" rx="1.5" fill="#80B8E6"/>
+    <rect x="-43" y="13" width="5" height="3" rx="1" fill="white" opacity="0.7"/>
+
+    <rect x="-11" y="10" width="22" height="18" rx="2" fill="#1C3F77" opacity="0.12"/>
+    <rect x="-9"  y="12" width="18" height="14" rx="1.5" fill="#80B8E6"/>
+    <rect x="-8"  y="13" width="5" height="3" rx="1" fill="white" opacity="0.7"/>
+
+    <rect x="24"  y="10" width="22" height="18" rx="2" fill="#1C3F77" opacity="0.12"/>
+    <rect x="26"  y="12" width="18" height="14" rx="1.5" fill="#80B8E6"/>
+    <rect x="27"  y="13" width="5" height="3" rx="1" fill="white" opacity="0.7"/>
+
+    <!-- Door -->
+    <rect x="-12" y="20" width="24" height="40" rx="2" fill="#1C3F77"/>
+    <circle cx="7" cy="42" r="2.4" fill="#C4D0DC"/>
+
+    <!-- Float base line -->
+    <line x1="-70" y1="62" x2="70" y2="62" stroke="#A9B4BC" stroke-width="1" opacity="0.35"/>
+  </g>
+
+</svg>

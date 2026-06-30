@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="300" height="400" viewBox="0 0 300 400">
+  <defs>
+    <!-- Styles for consistency and easier modification -->
+    <style type="text/css">
+      .ice-text { font-family: Serif; font-weight: normal; font-size: 32px; fill: #A9B4BC; }
+      .wood-text { font-family: Serif; font-weight: bold; font-size: 40px; fill: #1C3F77; }
+      .realty-text { font-family: Serif; font-weight: normal; font-size: 16px; fill: #A9B4BC; text-anchor: middle; text-transform: uppercase; letter-spacing: 2px; }
+      .house-dark { fill: #1C3F77; }
+      .house-light { fill: #F5F7FA; stroke: #1C3F77; stroke-width: 0.5px; }
+      .city-building { fill: #1C3F77; stroke: #A9B4BC; stroke-width: 0.5px; }
+      .line { stroke: #A9B4BC; stroke-width: 1px; }
+      .wavy-line { stroke: #A9B4BC; stroke-width: 1px; fill: none; }
+    </style>
+  </defs>
+
+  <!-- Top graphic elements (House and Buildings) -->
+  <g transform="translate(0, -30)">
+    <!-- Houses -->
+    <g transform="translate(130, 80)">
+      <polygon points="20,0 40,20 0,20" class="house-dark" /> <!-- Top house roof -->
+      <rect x="5" y="20" width="30" height="25" class="house-light" /> <!-- Top house body -->
+      <rect x="18" y="32" width="4" height="6" class="house-dark" /> <!-- Door -->
+    </g>
+    <g transform="translate(130, 110)">
+      <polygon points="20,0 40,20 0,20" class="house-light" /> <!-- Middle house roof -->
+      <rect x="5" y="20" width="30" height="25" class="house-light" /> <!-- Middle house body -->
+      <rect x="10" y="25" width="5" height="5" class="house-dark" /> <!-- Windows -->
+      <rect x="17" y="25" width="5" height="5" class="house-dark" />
+      <rect x="24" y="25" width="5" height="5" class="house-dark" />
+      <rect x="10" y="32" width="5" height="5" class="house-dark" />
+      <rect x="17" y="32" width="5" height="5" class="house-dark" />
+      <rect x="24" y="32" width="5" height="5" class="house-dark" />
+    </g>
+
+    <!-- City buildings -->
+    <g transform="translate(50, 160)">
+      <rect x="0" y="40" width="20" height="40" class="city-building" />
+      <rect x="25" y="20" width="20" height="60" class="city-building" />
+      <rect x="50" y="0" width="20" height="80" class="city-building" />
+      <rect x="75" y="0" width="20" height="80" class="city-building" />
+      <rect x="100" y="20" width="20" height="60" class="city-building" />
+      <rect x="125" y="40" width="20" height="40" class="city-building" />
+    </g>
+
+    <!-- Wavy line -->
+    <path d="M 50 180 Q 150 160 250 180" class="wavy-line" />
+  </g>
+
+  <!-- Text and lines block -->
+  <g transform="translate(50, 240)">
+    <!-- ICE WOOD -->
+    <text x="0" y="30">
+      <tspan class="ice-text">ICE</tspan>
+      <tspan class="wood-text" dx="5">WOOD</tspan>
+    </text>
+
+    <!-- Lines and REALTY -->
+    <g transform="translate(0, 60)">
+      <line x1="0" y1="0" x2="60" y2="0" class="line" />
+      <text x="100" y="5" class="realty-text">REALTY</text>
+      <line x1="140" y1="0" x2="200" y2="0" class="line" />
+    </g>
+  </g>
+
+</svg>
