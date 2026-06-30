@@ -513,27 +513,40 @@ const v1 = document.getElementById('heroVid1');
 const v2 = document.getElementById('heroVid2');
 let cur = v1;
 cur.src = heroVids[0];
-cur.play();
+cur.play().catch(() => {});
 v2.style.display = 'none';
-function nextVid() {
+
+function swapVid() {
   vi = (vi + 1) % heroVids.length;
   const nxt = cur === v1 ? v2 : v1;
   nxt.src = heroVids[vi];
   nxt.style.display = '';
   nxt.style.opacity = '0';
-  nxt.play();
+  nxt.play().catch(() => {});
   nxt.style.transition = 'opacity 1.2s';
   cur.style.transition = 'opacity 1.2s';
   requestAnimationFrame(() => { nxt.style.opacity = '1'; cur.style.opacity = '0'; });
   setTimeout(() => {
+    cur.pause();
     cur.style.display = 'none';
     cur.style.transition = 'none';
     cur.style.opacity = '1';
     cur = nxt;
-    cur.addEventListener('ended', nextVid);
   }, 1300);
 }
-cur.addEventListener('ended', nextVid);
+
+let checkTimer;
+function watchEnd(v) {
+  clearInterval(checkTimer);
+  checkTimer = setInterval(() => {
+    if (v.ended || v.currentTime >= v.duration - 0.5) {
+      clearInterval(checkTimer);
+      swapVid();
+    }
+  }, 250);
+}
+v1.addEventListener('play', () => watchEnd(v1));
+v2.addEventListener('play', () => watchEnd(v2));
 </script>
 
 <!-- ============ ABOUT ============ -->
