@@ -146,7 +146,7 @@ h1,h2,h3,h4,h5,h6,.title { font-family: var(--font-serif); font-weight: 400; }
 
 /* ====== HERO ====== */
 .hero {
-  position: relative; min-height: 85vh; display: flex; align-items: center; justify-content: center;
+  position: relative; min-height: 100vh; display: flex; align-items: center; justify-content: center;
   overflow: hidden; background: #000;
 }
 .hero .overlay {
@@ -191,6 +191,29 @@ h1,h2,h3,h4,h5,h6,.title { font-family: var(--font-serif); font-weight: 400; }
 }
 .search-bar .go:hover { filter: brightness(1.15); }
 .search-bar .go svg { width: 1.5rem; height: 1.5rem; fill: currentColor; }
+.scroll-indicator {
+  position: absolute; bottom: 2.5rem; left: 50%; transform: translateX(-50%); z-index: 2;
+  display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
+  color: rgba(255,255,255,0.6); cursor: pointer; transition: color 0.3s;
+  animation: floatDown 2.5s ease-in-out infinite;
+}
+.scroll-indicator:hover { color: var(--white); }
+.scroll-indicator span { font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.25em; font-weight: 300; }
+.scroll-indicator svg { width: 1.5rem; height: 1.5rem; fill: currentColor; }
+@keyframes floatDown {
+  0%, 100% { transform: translateX(-50%) translateY(0); opacity: 0.6; }
+  50% { transform: translateX(-50%) translateY(8px); opacity: 1; }
+}
+.hero-dots {
+  position: absolute; bottom: 1.2rem; left: 50%; transform: translateX(-50%); z-index: 2;
+  display: flex; gap: 0.6rem;
+}
+.hero-dots span {
+  width: 0.5rem; height: 0.5rem; border-radius: 50%; background: rgba(255,255,255,0.35);
+  cursor: pointer; transition: all 0.3s;
+}
+.hero-dots span.active { background: var(--gold); width: 1.2rem; border-radius: 0.25rem; }
+.hero-dots span:hover { background: rgba(255,255,255,0.7); }
 @media (max-width: 48rem) {
   .search-bar { flex-wrap: wrap; border-radius: 1.5rem; gap: 0; }
   .search-bar input { flex: 1 1 100%; padding: 1rem 1.5rem; }
@@ -499,6 +522,11 @@ footer .copy {
       </button>
     </div>
   </div>
+  <a href="#about" class="scroll-indicator">
+    <span>Scroll to Explore</span>
+    <svg viewBox="0 0 24 24"><path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/></svg>
+  </a>
+  <div class="hero-dots"></div>
 </section>
 <script>
 const heroVids = [
@@ -516,8 +544,41 @@ cur.src = heroVids[0];
 cur.play().catch(() => {});
 v2.style.display = 'none';
 
+const dotsContainer = document.querySelector('.hero-dots');
+const dots = heroVids.map((_, i) => {
+  const d = document.createElement('span');
+  if (i === 0) d.classList.add('active');
+  d.addEventListener('click', () => { clearInterval(checkTimer); goToVid(i); });
+  dotsContainer.appendChild(d);
+  return d;
+});
+
+function goToVid(idx) {
+  if (idx === vi) return;
+  vi = idx;
+  dots.forEach(d => d.classList.remove('active'));
+  dots[vi].classList.add('active');
+  const nxt = cur === v1 ? v2 : v1;
+  nxt.src = heroVids[vi];
+  nxt.style.display = '';
+  nxt.style.opacity = '0';
+  nxt.play().catch(() => {});
+  nxt.style.transition = 'opacity 1.2s';
+  cur.style.transition = 'opacity 1.2s';
+  requestAnimationFrame(() => { nxt.style.opacity = '1'; cur.style.opacity = '0'; });
+  setTimeout(() => {
+    cur.pause();
+    cur.style.display = 'none';
+    cur.style.transition = 'none';
+    cur.style.opacity = '1';
+    cur = nxt;
+  }, 1300);
+}
+
 function swapVid() {
   vi = (vi + 1) % heroVids.length;
+  dots.forEach(d => d.classList.remove('active'));
+  dots[vi].classList.add('active');
   const nxt = cur === v1 ? v2 : v1;
   nxt.src = heroVids[vi];
   nxt.style.display = '';
@@ -579,7 +640,7 @@ v2.addEventListener('play', () => watchEnd(v2));
       <p class="desc">Let us help you every step of the way. When purchasing a home, you are faced with a multitude of decisions — let us simplify the process.</p>
     </div>
     <div class="listings-scroller">
-      <a href="mylistings.html?q=Belmont" class="listing-card" style="background-image:url('https://images.unsplash.com/photo-1726019687858-8e5d15f89ec2?w=800&q=80')">
+      <a href="mylistings.html?q=Belmont" class="listing-card" style="background-image:url('https://images.unsplash.com/photo-1726019687858-8e5d15f89ec2?w=1200&q=80')">
         <div class="badge">Estate</div>
         <div class="info">
           <div class="loc">Victoria</div>
@@ -587,7 +648,7 @@ v2.addEventListener('play', () => watchEnd(v2));
           <div class="price">$7,500,000</div>
         </div>
       </a>
-      <a href="mylistings.html?q=Matthews" class="listing-card" style="background-image:url('https://images.unsplash.com/photo-1706164971309-fb4785fe6ceb?w=800&q=80')">
+      <a href="mylistings.html?q=Matthews" class="listing-card" style="background-image:url('https://images.unsplash.com/photo-1706164971309-fb4785fe6ceb?w=1200&q=80')">
         <div class="badge">Featured</div>
         <div class="info">
           <div class="loc">Point Grey</div>
@@ -595,7 +656,7 @@ v2.addEventListener('play', () => watchEnd(v2));
           <div class="price">$6,800,000</div>
         </div>
       </a>
-      <a href="mylistings.html?q=Blundell" class="listing-card" style="background-image:url('https://images.unsplash.com/photo-1733431766379-278a43ed0a7e?w=800&q=80')">
+      <a href="mylistings.html?q=Blundell" class="listing-card" style="background-image:url('https://images.unsplash.com/photo-1733431766379-278a43ed0a7e?w=1200&q=80')">
         <div class="badge">New</div>
         <div class="info">
           <div class="loc">Richmond</div>
@@ -603,21 +664,21 @@ v2.addEventListener('play', () => watchEnd(v2));
           <div class="price">$5,880,000</div>
         </div>
       </a>
-      <a href="mylistings.html?q=Duchess" class="listing-card" style="background-image:url('https://images.unsplash.com/photo-1716065145743-62b57bf0d3b8?w=800&q=80')">
+      <a href="mylistings.html?q=Duchess" class="listing-card" style="background-image:url('https://images.unsplash.com/photo-1716065145743-62b57bf0d3b8?w=1200&q=80')">
         <div class="info">
           <div class="loc">West Vancouver</div>
           <div class="addr">1288 Duchess Ave</div>
           <div class="price">$5,200,000</div>
         </div>
       </a>
-      <a href="mylistings.html?q=38th" class="listing-card" style="background-image:url('https://images.unsplash.com/photo-1732721176814-c0bc82db3971?w=800&q=80')">
+      <a href="mylistings.html?q=38th" class="listing-card" style="background-image:url('https://images.unsplash.com/photo-1732721176814-c0bc82db3971?w=1200&q=80')">
         <div class="info">
           <div class="loc">Shaughnessy</div>
           <div class="addr">1288 W 38th Ave</div>
           <div class="price">$4,200,000</div>
         </div>
       </a>
-      <a href="mylistings.html?q=Marine" class="listing-card" style="background-image:url('https://images.unsplash.com/photo-1711098256664-d2ea62e6e376?w=800&q=80')">
+      <a href="mylistings.html?q=Marine" class="listing-card" style="background-image:url('https://images.unsplash.com/photo-1711098256664-d2ea62e6e376?w=1200&q=80')">
         <div class="info">
           <div class="loc">Vancouver</div>
           <div class="addr">2188 SW Marine Dr</div>
@@ -638,10 +699,10 @@ v2.addEventListener('play', () => watchEnd(v2));
     <h2 class="title">Find Your Dream Home</h2>
   </div>
   <div class="price-grid">
-    <a href="mylistings.html" target="_blank" class="price-tile" style="background-image:url('https://images.unsplash.com/photo-1711098256664-d2ea62e6e376?w=800&q=80')">
+    <a href="mylistings.html" target="_blank" class="price-tile" style="background-image:url('https://images.unsplash.com/photo-1711098256664-d2ea62e6e376?w=1200&q=80')">
       <div class="label"><div class="txt">$0 – $500k</div></div>
     </a>
-    <a href="mylistings.html" target="_blank" class="price-tile" style="background-image:url('https://images.unsplash.com/photo-1733431766379-278a43ed0a7e?w=800&q=80')">
+    <a href="mylistings.html" target="_blank" class="price-tile" style="background-image:url('https://images.unsplash.com/photo-1733431766379-278a43ed0a7e?w=1200&q=80')">
       <div class="label"><div class="txt">$500k – $800k</div></div>
     </a>
     <a href="mylistings.html" target="_blank" class="price-tile" style="background-image:url('https://images.unsplash.com/photo-1710883727446-0bf5692fd709?w=800&q=80')">
@@ -653,7 +714,7 @@ v2.addEventListener('play', () => watchEnd(v2));
     <a href="mylistings.html" target="_blank" class="price-tile" style="background-image:url('https://images.unsplash.com/photo-1727088523302-a2dc1e2cc61c?w=800&q=80')">
       <div class="label"><div class="txt">$1.5M+</div></div>
     </a>
-    <a href="mylistings.html" target="_blank" class="price-tile" style="background-image:url('https://images.unsplash.com/photo-1732721176814-c0bc82db3971?w=800&q=80')">
+    <a href="mylistings.html" target="_blank" class="price-tile" style="background-image:url('https://images.unsplash.com/photo-1732721176814-c0bc82db3971?w=1200&q=80')">
       <div class="label"><div class="txt">$3M+</div></div>
     </a>
   </div>
@@ -662,7 +723,7 @@ v2.addEventListener('play', () => watchEnd(v2));
 <!-- ============ CATEGORY TILES ============ -->
 <section style="padding-top:0;">
   <div class="cat-grid">
-    <a href="mylistings.html?q=Granville" class="cat-tile" style="background-image:url('https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&q=80')">
+    <a href="mylistings.html?q=Granville" class="cat-tile" style="background-image:url('https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1200&q=80')">
       <div class="inner">
         <div class="tag">For Buyers</div>
         <div class="price-l">$1,380,000</div>
@@ -670,7 +731,7 @@ v2.addEventListener('play', () => watchEnd(v2));
         <div class="addr-l">8277 Granville Ave, Richmond</div>
       </div>
     </a>
-    <a href="mylistings.html?q=Selkirk" class="cat-tile" style="background-image:url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=80')">
+    <a href="mylistings.html?q=Selkirk" class="cat-tile" style="background-image:url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1200&q=80')">
       <div class="inner">
         <div class="tag">For Sellers</div>
         <div class="price-l">$2,200,000</div>
@@ -678,7 +739,7 @@ v2.addEventListener('play', () => watchEnd(v2));
         <div class="addr-l">3851 Selkirk St, Vancouver</div>
       </div>
     </a>
-    <a href="mylistings.html?q=Matthews" class="cat-tile" style="background-image:url('https://images.unsplash.com/photo-1706164971309-fb4785fe6ceb?w=800&q=80')">
+    <a href="mylistings.html?q=Matthews" class="cat-tile" style="background-image:url('https://images.unsplash.com/photo-1706164971309-fb4785fe6ceb?w=1200&q=80')">
       <div class="inner">
         <div class="tag">Home Search</div>
         <div class="price-l">$6,800,000</div>
