@@ -305,28 +305,30 @@ section:nth-child(even) { background: var(--grey-light); }
 }
 
 /* ====== CATEGORY TILES ====== */
-.cat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 3px; }
+.cat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
 .cat-tile {
   position: relative; aspect-ratio: 1; cursor: pointer; overflow: hidden;
-  background-size: cover; background-position: center;
+  background-size: cover; background-position: center; border-radius: 12px;
+  display: flex; flex-direction: column; justify-content: flex-end;
+  box-shadow: 0 4px 20px rgba(15,22,40,0.15);
 }
 .cat-tile::after {
   content: ''; position: absolute; inset: 0;
-  background: linear-gradient(to bottom, rgba(15,22,40,0.5), rgba(15,22,40,0.6));
-  transition: background 0.3s;
+  background: linear-gradient(to bottom, transparent 30%, rgba(15,22,40,0.85) 100%);
 }
-.cat-tile:hover::after { background: linear-gradient(to bottom, rgba(28,63,119,0.6), rgba(15,22,40,0.8)); }
+.cat-tile:hover { transform: translateY(-4px); }
 .cat-tile .inner {
-  position: absolute; inset: 0; z-index: 1; display: flex; flex-direction: column;
-  align-items: center; justify-content: center; color: var(--white);
+  position: relative; z-index: 1; color: var(--white);
+  padding: 2rem 1.5rem;
 }
-.cat-tile .inner .title { font-size: 2rem; margin-bottom: 1.25rem; }
-.cat-tile .inner .circle {
-  width: 3.5rem; height: 3.5rem; border: 1.5px solid currentColor; border-radius: 50%;
-  display: flex; align-items: center; justify-content: center; font-size: 1.2rem;
-  transition: all 0.3s;
+.cat-tile .inner .tag {
+  display: inline-block; background: var(--gold); color: var(--navy-darkest);
+  font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.12em;
+  font-weight: 700; padding: 0.3rem 0.8rem; border-radius: 2rem; margin-bottom: 0.8rem;
 }
-.cat-tile:hover .inner .circle { background: var(--gold); border-color: var(--gold); color: var(--navy-darkest); }
+.cat-tile .inner .price-l { font-family: var(--font-serif); font-size: 1.8rem; margin-bottom: 0.3rem; }
+.cat-tile .inner .specs { font-size: 0.85rem; opacity: 0.85; margin-bottom: 0.2rem; }
+.cat-tile .inner .addr-l { font-size: 0.8rem; opacity: 0.7; }
 
 /* ====== RESOURCES ====== */
 .resources {
@@ -398,7 +400,7 @@ footer .copy {
 @media (max-width: 48rem) {
   .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
   .price-grid { grid-template-columns: 1fr 1fr; }
-  .cat-grid { grid-template-columns: 1fr; }
+  .cat-grid { grid-template-columns: 1fr; gap: 1.5rem; }
   .hero .subtitle { font-size: 0.72rem; letter-spacing: 0.25em; }
   .section-head .title { font-size: 1.5rem; }
 }
@@ -647,22 +649,28 @@ cur.addEventListener('ended', nextVid);
 <!-- ============ CATEGORY TILES ============ -->
 <section style="padding-top:0;">
   <div class="cat-grid">
-    <a href="mylistings.html" target="_blank" class="cat-tile" style="background-image:url('https://images.unsplash.com/photo-1711098256664-d2ea62e6e376?w=800&q=80')">
+    <a href="mylistings.html?q=Granville" class="cat-tile" style="background-image:url('https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&q=80')">
       <div class="inner">
-        <div class="title">For Buyers</div>
-        <div class="circle">→</div>
+        <div class="tag">For Buyers</div>
+        <div class="price-l">$1,380,000</div>
+        <div class="specs">3 beds | 2 baths | 1650 sqft</div>
+        <div class="addr-l">8277 Granville Ave, Richmond</div>
       </div>
     </a>
-    <a href="mylistings.html" target="_blank" class="cat-tile" style="background-image:url('https://images.unsplash.com/photo-1733431766379-278a43ed0a7e?w=800&q=80')">
+    <a href="mylistings.html?q=Selkirk" class="cat-tile" style="background-image:url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=80')">
       <div class="inner">
-        <div class="title">For Sellers</div>
-        <div class="circle">→</div>
+        <div class="tag">For Sellers</div>
+        <div class="price-l">$2,200,000</div>
+        <div class="specs">4 beds | 3 baths | 2500 sqft</div>
+        <div class="addr-l">3851 Selkirk St, Vancouver</div>
       </div>
     </a>
-    <a href="mylistings.html" target="_blank" class="cat-tile" style="background-image:url('https://images.unsplash.com/photo-1710883727446-0bf5692fd709?w=800&q=80')">
+    <a href="mylistings.html?q=Matthews" class="cat-tile" style="background-image:url('https://images.unsplash.com/photo-1706164971309-fb4785fe6ceb?w=800&q=80')">
       <div class="inner">
-        <div class="title">Home Search</div>
-        <div class="circle">→</div>
+        <div class="tag">Home Search</div>
+        <div class="price-l">$6,800,000</div>
+        <div class="specs">6 beds | 7 baths | 5600 sqft</div>
+        <div class="addr-l">1388 Matthews Ave, Vancouver</div>
       </div>
     </a>
   </div>
