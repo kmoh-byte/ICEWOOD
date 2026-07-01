@@ -216,9 +216,24 @@ h1,h2,h3,h4,h5,h6,.title { font-family: var(--font-serif); font-weight: 400; }
   .hero .logo-lockup svg { height: 8rem; }
 }
 
+/* ====== PAGE HERO ====== */
+.page-hero {
+  position: relative; min-height: 65vh; display: flex; align-items: center; justify-content: center;
+  overflow: hidden; background-color: #000; margin-top: var(--menu-h);
+  background-size: cover; background-position: center; background-repeat: no-repeat;
+}
+.page-hero::after {
+  content: ''; position: absolute; inset: 0; z-index: 1;
+  background: linear-gradient(to bottom, rgba(15,22,40,0.55) 0%, rgba(15,22,40,0.75) 100%);
+}
+.page-hero > div { position: relative; z-index: 2; text-align: center; padding: 3rem 2rem; width: 100%; max-width: 50rem; }
+@media (max-width: 48rem) {
+  .page-hero { min-height: 50vh; }
+}
+
 /* ====== SECTIONS ====== */
 section { padding: 5rem 0; }
-section:nth-child(even) { background: var(--grey-light); }
+section:not(.page-hero):nth-child(even) { background: var(--grey-light); }
 .section-head { text-align: center; margin-bottom: 3rem; }
 .section-head .sub {
   text-transform: uppercase; letter-spacing: 0.32em; font-size: 0.7rem;
@@ -485,10 +500,10 @@ footer .copy {
 </nav>
 
 <!-- ============ HERO ============ -->
-<section class="page-hero" style="background:linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)),url('https://images.unsplash.com/photo-1726019687858-8e5d15f89ec2?w=1600&q=80') center/cover fixed;min-height:65vh;display:flex;align-items:center;justify-content:center;text-align:center;color:#fff;">
+<section class="page-hero" style="background-image:url('https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1600&q=80')">
   <div>
-    <h1 style="font-family:'Playfair Display',Georgia,serif;font-size:3rem;margin-bottom:1rem;">Selling Your Property</h1>
-    <p style="font-family:'Lato','Segoe UI',sans-serif;font-size:1.1rem;max-width:36rem;margin:0 auto;opacity:0.9;">Maximize your home's value with our proven marketing strategy</p>
+    <h1 style="font-family:'Playfair Display',Georgia,serif;font-size:3rem;margin-bottom:1rem;color:#fff;">Selling Your Property</h1>
+    <p style="font-family:'Lato','Segoe UI',sans-serif;font-size:1.1rem;max-width:36rem;margin:0 auto;opacity:0.9;color:#fff;">Maximize your home's value with our proven marketing strategy</p>
   </div>
 </section>
 
